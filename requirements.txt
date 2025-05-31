@@ -1,0 +1,16 @@
+# Core dependencies for photo sorting
+Pillow>=10.0.0
+exifread>=3.0.0
+PyYAML>=6.0.0
+python-dateutil>=2.8.0
+tqdm>=4.65.0
+
+# Optional: Video metadata extraction
+# Uncomment if you need video processing features
+# ffmpeg-python>=0.2.0
+
+# System requirements for video processing:
+# - ffmpeg (install system-wide)
+#   Ubuntu/Debian: sudo apt install ffmpeg
+#   macOS: brew install ffmpeg
+#   Windows: download from https://ffmpeg.org/

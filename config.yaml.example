@@ -1,0 +1,145 @@
+# PhotosSorter Configuration File Example
+# Copy this file to config.yaml and adjust the settings for your needs
+
+# Source directory containing photos to sort
+# Example: "/home/user/Pictures/Photos" or "C:/Users/User/Pictures"
+source_directory: "/path/to/your/photos"
+
+# Base directory where sorted photos will be organized
+# If null, photos will be organized within the source directory
+# Example: "/home/user/Pictures/Sorted" or "C:/Users/User/Pictures/Sorted"
+target_directory: null
+
+# Date format for directory structure
+# Available patterns:
+# - "YYYY/MM/DD" - 2024/01/15
+# - "YYYY/MM" - 2024/01
+# - "YYYY-MM-DD" - 2024-01-15
+# - "YYYY-MM" - 2024-01
+date_format: "YYYY/MM/DD"
+
+# Supported file extensions (case insensitive)
+supported_extensions:
+  # Image formats
+  - ".jpg"
+  - ".jpeg"
+  - ".png"
+  - ".tiff"
+  - ".tif"
+  - ".raw"
+  - ".cr2"
+  - ".nef"
+  - ".arw"
+  - ".dng"
+  # Video formats
+  - ".mpg"
+  - ".mpeg"
+  - ".mp4"
+  - ".avi"
+  - ".mov"
+  - ".mkv"
+  - ".wmv"
+  # Thumbnail/metadata formats
+  - ".thm"
+
+# Photo and video processing options
+processing:
+  # Whether to move files or copy them
+  move_files: true
+  
+  # Skip files that are already in organized directory structure
+  skip_organized: true
+  
+  # Create backup before moving/copying
+  create_backup: false
+  
+  # Handle duplicate filenames
+  # Options: "skip", "rename", "overwrite"
+  duplicate_handling: "rename"
+
+# Video processing specific options
+video:
+  # Enable video processing
+  enabled: true
+  
+  # Process video files together with their thumbnails/metadata
+  process_with_thumbnails: true
+  
+  # Thumbnail file extensions that belong to videos
+  thumbnail_extensions:
+    - ".thm"
+  
+  # When moving/copying videos, always move thumbnails together
+  keep_thumbnails_together: true
+  
+  # Extract date from video metadata (requires ffprobe)
+  extract_video_metadata: false
+  
+  # Fallback to thumbnail EXIF if video has no date metadata
+  use_thumbnail_date: true
+  
+  # MPG/THM merging options
+  mpg_processing:
+    # Enable merging of MPG videos with THM thumbnails
+    enable_merging: true
+    
+    # Delete original THM file after successful merge
+    delete_thm_after_merge: true
+    
+    # Keep backup of original MPG before merging
+    backup_original_mpg: false
+    
+    # Output quality for merged video
+    # Options: "same", "high", "medium", "low"
+    merge_quality: "same"
+    
+    # Add thumbnail as embedded cover image
+    # Options: "embedded", "first_frame", "both"
+    thumbnail_method: "embedded"
+    
+    # Require ffmpeg for merging (safety check)
+    require_ffmpeg: true
+
+# Fallback settings for photos without EXIF date
+fallback:
+  # Use file modification date if no EXIF date found
+  use_file_date: true
+  
+  # Directory name for photos without date information
+  no_date_folder: "Unknown_Date"
+
+# Logging configuration
+logging:
+  # Log level: DEBUG, INFO, WARNING, ERROR
+  level: "INFO"
+  
+  # Log file location
+  file: "logs/photos_sorter.log"
+  
+  # Maximum log file size in MB
+  max_size_mb: 10
+  
+  # Number of backup log files to keep
+  backup_count: 5
+
+# Performance settings
+performance:
+  # Process files in batches to manage memory
+  batch_size: 100
+  
+  # Show progress bar during processing
+  show_progress: true
+  
+  # Number of worker threads for parallel processing
+  worker_threads: 4
+
+# Safety settings
+safety:
+  # Dry run mode - only show what would be done
+  dry_run: false
+  
+  # Require confirmation before processing
+  confirm_before_start: true
+  
+  # Maximum number of files to process in one run (0 = unlimited)
+  max_files_per_run: 0
