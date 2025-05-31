@@ -14,22 +14,26 @@
 ## Quick Start
 
 1. **Install dependencies**
+
    ```bash
    pip install -r requirements.txt
    ```
 
 2. **Create configuration**
+
    ```bash
    cp config.yaml.example config.yaml
    ```
 
 3. **Edit config.yaml**
+
    ```yaml
    source_directory: "/path/to/your/photos"
    date_format: "YYYY/MM/DD"
    ```
 
 4. **Preview changes** (safe)
+
    ```bash
    python run.py --dry-run
    ```
@@ -41,8 +45,8 @@
 
 ## Supported Formats
 
-**Images:** JPEG, PNG, TIFF, RAW (CR2, NEF, ARW, DNG)  
-**Videos:** MPG, MP4, AVI, MOV, MKV  
+**Images:** JPEG, PNG, TIFF, RAW (CR2, NEF, ARW, DNG)
+**Videos:** MPG, MP4, AVI, MOV, MKV
 **Thumbnails:** THM (automatically merged with MPG videos)
 
 ## Example Output Structure
@@ -81,20 +85,20 @@ Key settings in `config.yaml`:
 ```yaml
 # Basic settings
 source_directory: "/path/to/photos"
-target_directory: null  # null = organize in source folder
+target_directory: null # null = organize in source folder
 date_format: "YYYY/MM/DD"
 
 # Processing
 processing:
-  move_files: true  # true=move, false=copy
-  duplicate_handling: "rename"  # skip, rename, overwrite
+  move_files: true # true=move, false=copy
+  duplicate_handling: "rename" # skip, rename, overwrite
 
 # Video processing
 video:
   enabled: true
   mpg_processing:
-    enable_merging: true      # Merge MPG+THM files
-    delete_thm_after_merge: true  # Remove THM after merge
+    enable_merging: true # Merge MPG+THM files
+    delete_thm_after_merge: true # Remove THM after merge
 
 # Safety
 safety:
@@ -110,21 +114,27 @@ For video processing (MPG/THM merging), install ffmpeg:
 # Ubuntu/Debian
 sudo apt install ffmpeg
 
+# Arch Linux
+sudo pacman -S ffmpeg
+
 # macOS
 brew install ffmpeg
 
 # Windows
 # Download from https://ffmpeg.org/
+# Or use choco
+choco install ffmpeg
 ```
 
 ## Troubleshooting
 
-**No EXIF date found**: Files moved to `Unknown_Date` folder  
-**Permission denied**: Check folder permissions  
-**MPG merging fails**: Ensure ffmpeg is installed and accessible  
+**No EXIF date found**: Files moved to `Unknown_Date` folder
+**Permission denied**: Check folder permissions
+**MPG merging fails**: Ensure ffmpeg is installed and accessible
 **Too many duplicates**: Adjust `duplicate_handling` in config
 
 **Debug a specific file**:
+
 ```bash
 python run.py --test-exif problematic_file.jpg
 ```
