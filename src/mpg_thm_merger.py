@@ -187,6 +187,25 @@ class MpgThmMerger:
                 if temp_output != final_output:
                     shutil.move(str(temp_output), str(final_output))
                 
+                # Preserve original file timestamps
+                try:
+                    original_stat = mpg_path.stat()
+                    os.utime(str(final_output), (original_stat.st_atime, original_stat.st_mtime))
+                    self.logger.debug(f"Preserved original timestamps for {final_output}")
+                except Exception as e:
+                    self.logger.warning(f"Could not preserve timestamps for {final_output}: {e}")
+                
+                # Delete original MPG file if we created the merged file in a different directory
+                # and we're in move mode (not copy mode)
+                move_files = self.config.get('processing', {}).get('move_files', True)
+                if move_files and output_dir != mpg_path.parent:
+                    try:
+                        mpg_path.unlink()
+                        self.stats['mpg_deleted'] = self.stats.get('mpg_deleted', 0) + 1
+                        self.logger.debug(f"Deleted original MPG file: {mpg_path}")
+                    except Exception as e:
+                        self.logger.warning(f"Could not delete original MPG file {mpg_path}: {e}")
+                
                 # Delete THM file if requested
                 if self.delete_thm_after_merge:
                     try:
