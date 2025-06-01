@@ -7,7 +7,6 @@ without needing to navigate to the src directory.
 """
 
 import sys
-import os
 from pathlib import Path
 
 # Add the src directory to Python path
@@ -17,10 +16,10 @@ sys.path.insert(0, str(src_dir))
 
 try:
     from photos_sorter import main
-    
+
     if __name__ == "__main__":
         main()
-        
+
 except ImportError as e:
     print(f"Error importing PhotosSorter modules: {e}")
     print("Make sure you have installed the required dependencies:")
